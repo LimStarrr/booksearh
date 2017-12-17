@@ -20,7 +20,6 @@ public class HistoryService {
         return GetHistoryResponse.valueOf(histories);
     }
     
-
     @Transactional
     public void postHistory(long userId, String query) {
         History history = new History();
