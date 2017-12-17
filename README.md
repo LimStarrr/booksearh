@@ -18,3 +18,11 @@ gradle 빌드 적용 설치 필요
 > gradle build
 
 > java -jar booksearch.jar
+
+연결 순서 :
+
+url : http://localhost:8080
+
+사용자 아이디와 비밀번호는 임의의 값으로 입력 후 로그인 버튼 클릭 후 테스트 진행
+
+

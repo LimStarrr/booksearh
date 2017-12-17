@@ -13,8 +13,8 @@ public class BookSearchService {
     @Autowired
     HistoryService historyService;
 
-    public BookSearch getBooks(String title) {
-        historyService.postHistory(1, title);
+    public BookSearch getBooks(long userId, String title) {
+        historyService.postHistory(userId, title);
 
         return bookSearchRestTemplate.getSearchResult(title);
     }

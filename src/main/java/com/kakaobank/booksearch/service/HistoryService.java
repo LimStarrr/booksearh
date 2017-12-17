@@ -21,7 +21,7 @@ public class HistoryService {
     }
 
     @Transactional
-    public void postHistory(int userId, String query) {
+    public void postHistory(long userId, String query) {
         History history = new History();
         history.setUserId(userId);
         history.setQuery(query);
