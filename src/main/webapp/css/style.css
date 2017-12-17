@@ -1,0 +1,80 @@
+body {}
+
+.footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+
+/* Main marketing message and sign up button */
+
+.navbar {
+    background-image: linear-gradient(to bottom, #f7f7f7 0%, #eee 100%);
+    border: 1px solid #e5e5e5;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .navbar-nav .nav-item {
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+    }
+}
+
+.search-text {
+    margin: 7px 10px 0 0;
+}
+
+.history-list {
+    padding: 0 30px 0 30px;
+}
+
+.generic-container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #EAE7E7;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 0 10px gray;
+}
+
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+    /* Remove the padding we set earlier */
+    .masthead,
+    .marketing,
+    .footer {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+thead {
+    background: silver;
+}
+
+tbody {
+    font-size: 12px;
+    color: rgb(83, 81, 81);
+    font-family: Gulim, "굴림", sans-serif;
+}
+
+.boot-info {
+    margin: 5px 0 3px 0;
+}
+
+.boot-info img {
+    border: 1px solid #ddd;
+}
+
+.book-title {
+    font-weight: bold;
+}
