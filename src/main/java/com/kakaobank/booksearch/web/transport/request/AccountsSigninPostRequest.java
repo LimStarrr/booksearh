@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @ToString
 @EqualsAndHashCode
 public class AccountsSigninPostRequest {
-//    @ApiModelProperty(required = true)
     @NotEmpty
     String userId;
     @NotEmpty

@@ -29,10 +29,10 @@ public class BookmarksService {
     }
 
     @Transactional
-    public void postBookmarks(PostBookmarkRequest request) {
+    public void postBookmarks(long userId, PostBookmarkRequest request) {
         Bookmark bookmark = new Bookmark();
 
-        bookmark.setUserId(1);
+        bookmark.setUserId(userId);
         bookmark.setAuthors(request.getAuthors());
         bookmark.setBarcode(request.getBarcode());
         bookmark.setCategory(request.getCategory());

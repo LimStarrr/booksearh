@@ -1,6 +1,6 @@
 package com.kakaobank.booksearch.web.transport;
 
-import com.kakaobank.booksearch.web.transport.request.EnumSort;
+import com.kakaobank.booksearch.web.transport.request.SortType;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -21,9 +21,9 @@ public class Pagination {
 	private Integer size = Integer.MAX_VALUE;
 
 	@Enumerated(EnumType.ORDINAL)
-	private EnumSort sortType;
+	private SortType sortType;
 
 	public PageRequest toPageRequest() {
-		return new PageRequest(0, this.size, new Sort(Direction.DESC, sortType.getReasonPhrase()));
+		return new PageRequest(0, this.size, new Sort(Direction.DESC, sortType.name()));
 	}
 }

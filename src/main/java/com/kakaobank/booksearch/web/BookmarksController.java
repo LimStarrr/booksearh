@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/bookmarks")
 public class BookmarksController {
@@ -17,9 +19,19 @@ public class BookmarksController {
     @Autowired
     BookmarksService bookmarksService;
 
+
+//    @PostMapping
+//    public void postBookmarks(@RequestAttribute(Attribute.SESSION) Session session) {
+//        bookmarksService.postBookmarks(session.getValue().getUserId(), null);
+//    }
+
     @PostMapping
-    public void postBookmarks(@RequestBody PostBookmarkRequest request) {
-        bookmarksService.postBookmarks(request);
+    @ResponseBody
+    public String postBookmarks(@RequestAttribute(Attribute.SESSION) Session session,
+                              @RequestBody @Valid PostBookmarkRequest request) {
+        bookmarksService.postBookmarks(session.getValue().getUserId(), request);
+//        bookmarksService.postBookmarks(session.getValue().getUserId(), null);
+        return null;
     }
 
     @GetMapping
