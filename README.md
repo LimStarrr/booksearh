@@ -7,7 +7,7 @@ spring boot 사용
 DB : H2 Database
 
 
-1. Session관리를 위한 Redis 설치 필요
+1. Session관리를 위한 Redis 설치 후 redis server 시작 필요
 
 > ./redis-server
 
