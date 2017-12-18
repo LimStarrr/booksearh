@@ -19,7 +19,7 @@ public class HistoryService {
         ArrayList<History> histories = historyRepository.findByUserId(userId);
         return GetHistoryResponse.valueOf(histories);
     }
-    
+
     @Transactional
     public void postHistory(long userId, String query) {
         History history = new History();

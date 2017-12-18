@@ -4,6 +4,7 @@ import com.kakaobank.booksearch.common.HttpHeader;
 import com.kakaobank.booksearch.domain.jpa.User;
 import com.kakaobank.booksearch.service.AccountsService;
 import com.kakaobank.booksearch.web.transport.request.AccountsSigninPostRequest;
+import com.kakaobank.booksearch.web.transport.response.AccountsSignInResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.CookieGenerator;
@@ -19,7 +20,7 @@ public class AccountsController {
 
     @PostMapping("/signin")
     @ResponseBody
-    public void signin(@RequestBody @Valid AccountsSigninPostRequest request,
+    public AccountsSignInResponse signin(@RequestBody @Valid AccountsSigninPostRequest request,
                                HttpServletResponse response) {
         CookieGenerator cookieGenerator = new CookieGenerator();
         cookieGenerator.setCookiePath("/");
@@ -27,6 +28,6 @@ public class AccountsController {
         cookieGenerator.setCookieName(HttpHeader.SESSION);
         User user = accountsService.signin(request);
         cookieGenerator.addCookie(response, accountsService.getSessionId(user));
-//        return AccountsSignInResponse.valueOf(user);
+        return AccountsSignInResponse.valueOf(user);
     }
 }

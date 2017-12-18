@@ -29,10 +29,8 @@ public class BookSearchRestTemplate {
         headers.set("Authorization", "KakaoAK b213e0be9fc3047b54714796f6f0ef5e");
         HttpEntity entity = new HttpEntity(headers);
 
-        ResponseEntity<BookSearch> test = restTemplate.exchange(uri, HttpMethod.GET, entity, BookSearch.class);
-//        ResponseEntity<String> response = restTemplate.exchange(
-//                url, HttpMethod.GET, entity, String.class, param);
-//        return restTemplate.getForObject(uri, new HttpEntity(headers), String.class);
-        return test.getBody();
+        ResponseEntity<BookSearch> bookSearchResponseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, BookSearch.class);
+
+        return bookSearchResponseEntity.getBody();
     }
 }

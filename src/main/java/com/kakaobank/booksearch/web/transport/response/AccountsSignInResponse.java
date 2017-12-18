@@ -1,5 +1,6 @@
 package com.kakaobank.booksearch.web.transport.response;
 
+import com.kakaobank.booksearch.domain.jpa.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -8,17 +9,17 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class AccountsSignInResponse {
-    private int id;
+    private long id;
 
-//    private LocalDateTime createdAt;
-//
-//    public static AccountsSignInResponse valueOf(User user) {
-//        AccountsSignInResponse response = new AccountsSignInResponse();
-//        response.setId(user.getId());
-//        response.setEmail(user.getEmail());
-//        response.setNickName(user.getNickname());
-//        response.setSocialType(user.getSocialType());
-//        response.setCreatedAt(user.getCreatedAt());
-//        return response;
-//    }
+    private String userId;
+    private String password;
+
+    public static AccountsSignInResponse valueOf(User user) {
+        AccountsSignInResponse response = new AccountsSignInResponse();
+        response.setId(user.getId());
+        response.setUserId(user.getUserId());
+        response.setPassword(user.getPassword());
+
+        return response;
+    }
 }
