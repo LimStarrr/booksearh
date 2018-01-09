@@ -69,17 +69,12 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
         BookService.login(userData)
             .then(
                 function (res) {
-                    // alert(res.historys);
-                    // alert(res)
-                    // $location.path('/search');
-                    // $location.path('/search.html');
-                    // $state.go('/search');
-                    // $state.go('/search.html');
                     $window.location.href = '/search';
 
                 },
                 function(errResponse) {
-                    console.error('Error while search history');
+                    console.error(errResponse);
+                    // console.error('Error while search history');
                 }
             );
     }

@@ -20,10 +20,9 @@ public class Pagination {
 
 	private Integer size = Integer.MAX_VALUE;
 
-	@Enumerated(EnumType.ORDINAL)
-	private SortType sortType;
+	private String sortType = SortType.CATEGORY.name();
 
 	public PageRequest toPageRequest() {
-		return new PageRequest(0, this.size, new Sort(Direction.DESC, sortType.name()));
+		return new PageRequest(0, this.size, new Sort(Direction.DESC, this.sortType));
 	}
 }

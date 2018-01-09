@@ -1,10 +1,12 @@
 package com.kakaobank.booksearch.repository.jpa;
 
 import com.kakaobank.booksearch.domain.jpa.History;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
-public interface HistoryRepository extends CrudRepository<History, Long> {
+@Repository
+public interface HistoryRepository extends JpaRepository<History, Long> {
     ArrayList<History> findByUserId(long userId);
 }

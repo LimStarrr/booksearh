@@ -1,8 +1,12 @@
 package com.kakaobank.booksearch;
 
+import com.kakaobank.booksearch.common.HttpHeader;
+import com.kakaobank.booksearch.domain.jpa.User;
 import com.kakaobank.booksearch.web.transport.request.AccountsSigninPostRequest;
 import com.kakaobank.booksearch.web.transport.request.PostBookmarkRequest;
 import com.kakaobank.booksearch.web.transport.response.GetBookmarkResponse;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.context.embedded.LocalServerPort;
@@ -11,6 +15,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,15 +29,29 @@ public class BookmarkTests {
 
 	private TestRestTemplate template = new TestRestTemplate();
 
+	private HttpHeaders httpHeaders = new HttpHeaders();
+
+	@Before
+	public void setup() {
+		User user = new User();
+		user.setUserId("user");
+		user.setPassword("password");
+		ResponseEntity<User> response = template.postForEntity("http://localhost:" + port
+				+ "/signin", user, User.class);
+		httpHeaders = response.getHeaders();
+		Assert.assertNotNull(httpHeaders);
+	}
+
 	@Test
 	public void getBookmarksTest() {
-		HttpHeaders httpHeaders = new HttpHeaders();
+		HttpHeaders headers = new HttpHeaders();
+		String cookie = httpHeaders.getFirst("Set-Cookie");
+		headers.add("Cookie", cookie);
 
-		HttpEntity<String> request = new HttpEntity<>(httpHeaders);
-		ResponseEntity<String> response = template.getForEntity("http://localhost:" + port
-				+ "/bookmarks", String.class);
 
-		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+		HttpEntity<?> entity = new HttpEntity<>(headers);
+		ResponseEntity<String> response = template.exchange("http://localhost:" + port
+				+ "/bookmarks", HttpMethod.GET, entity, String.class);
 	}
 
 	@Test
@@ -104,5 +123,19 @@ public class BookmarkTests {
 				+ "/signin",HttpMethod.POST, request, String.class);
 
 		return response.getHeaders();
+	}
+
+	protected String getCookiesString(String cookie) {
+		StringBuilder sb = new StringBuilder();
+//		if (!cookies.isEmpty()) {
+//			cookies.entrySet().forEach(entry -> {
+//				sb.append(entry.getKey());
+//				sb.append("=");
+//				sb.append(entry.getValue());
+//				sb.append(";");
+//			});
+//			sb.deleteCharAt(sb.length() - 1);
+//		}
+		return sb.toString();
 	}
 }

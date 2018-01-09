@@ -5,9 +5,9 @@ import com.kakaobank.booksearch.domain.redis.Session;
 import com.kakaobank.booksearch.service.BookmarksService;
 import com.kakaobank.booksearch.web.transport.Pagination;
 import com.kakaobank.booksearch.web.transport.request.PostBookmarkRequest;
+import com.kakaobank.booksearch.web.transport.request.SortType;
 import com.kakaobank.booksearch.web.transport.response.GetBookmarkResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,13 +28,13 @@ public class BookmarksController {
     @PostMapping
     @ResponseBody
     public String postBookmarks(@RequestAttribute(Attribute.SESSION) Session session,
-                              @RequestBody @Valid PostBookmarkRequest request) {
+                                @RequestBody @Valid PostBookmarkRequest request) {
         bookmarksService.postBookmarks(session.getValue().getUserId(), request);
 //        bookmarksService.postBookmarks(session.getValue().getUserId(), null);
         return null;
     }
 
-    @GetMapping
+    @GetMapping("")
     @ResponseBody
     public GetBookmarkResponse getBookmarks(@RequestAttribute(Attribute.SESSION) Session session,
                                             @ModelAttribute Pagination pagination) {

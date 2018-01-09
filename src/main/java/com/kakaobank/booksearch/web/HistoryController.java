@@ -6,12 +6,10 @@ import com.kakaobank.booksearch.service.HistoryService;
 import com.kakaobank.booksearch.web.transport.response.GetHistoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+//@Controller
+@RestController
 @RequestMapping("/history")
 public class HistoryController {
     @Autowired

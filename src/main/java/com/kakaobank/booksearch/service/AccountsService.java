@@ -5,7 +5,7 @@ import com.kakaobank.booksearch.domain.redis.Session;
 import com.kakaobank.booksearch.exception.CustomException;
 import com.kakaobank.booksearch.exception.CustomStatus;
 import com.kakaobank.booksearch.repository.jpa.UserRepository;
-import com.kakaobank.booksearch.repository.jpa.redis.SessionRepository;
+import com.kakaobank.booksearch.repository.redis.SessionRepository;
 import com.kakaobank.booksearch.web.transport.request.AccountsSigninPostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class AccountsService {
         Session session = new Session();
         session.setValue(Session.Value.valueOf(user));
         try {
-            sessionRepository.save(session);
+            session = sessionRepository.save(session);
         } catch(IllegalArgumentException e) {
             throw new CustomException(CustomStatus.SAVE_FAIL);
         }

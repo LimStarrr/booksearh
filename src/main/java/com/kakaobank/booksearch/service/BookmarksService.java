@@ -6,6 +6,7 @@ import com.kakaobank.booksearch.exception.CustomStatus;
 import com.kakaobank.booksearch.repository.jpa.BookmarkRepository;
 import com.kakaobank.booksearch.web.transport.Pagination;
 import com.kakaobank.booksearch.web.transport.request.PostBookmarkRequest;
+import com.kakaobank.booksearch.web.transport.request.SortType;
 import com.kakaobank.booksearch.web.transport.response.GetBookmarkResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ public class BookmarksService {
     @Autowired
     BookmarkRepository bookmarkRepository;
 
+//    public GetBookmarkResponse getBookmarks(long userId, Pagination pagination, String sortType) {
     public GetBookmarkResponse getBookmarks(long userId, Pagination pagination) {
-        ArrayList<Bookmark> bookmarks = bookmarkRepository.findByUserId(userId, pagination.toPageRequest());
+        ArrayList<Bookmark> bookmarks = bookmarkRepository.findAllByUserId(userId, pagination.toPageRequest());
 
         if(bookmarks.isEmpty())
             throw new CustomException(CustomStatus.NO_CONTENTS);

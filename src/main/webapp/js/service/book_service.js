@@ -95,12 +95,14 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
         var data = {
             lastId:1,
             size:10,
-            sortType:sortType
+            sortType:'title'
         };
 
         var config = {
             params: data
         }
+        // $http.get(REST_SERVICE_URI + '/bookmarks', config)
+        // $http.get(REST_SERVICE_URI + '/bookmarks/sort', config)
         $http.get(REST_SERVICE_URI + '/bookmarks', config)
             .then(
                 function(response) {
@@ -123,7 +125,8 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
                     deferred.resolve(response.data);
                 },
                 function(errResponse) {
-                    console.error('Error while search hitory');
+                    // console.error('Error while search hitory');
+                    console.error(errResponse);
                     deferred.reject(errResponse);
                 }
             );
