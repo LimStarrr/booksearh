@@ -22,7 +22,7 @@ public class BookmarksService {
 
 //    public GetBookmarkResponse getBookmarks(long userId, Pagination pagination, String sortType) {
     public GetBookmarkResponse getBookmarks(long userId, Pagination pagination) {
-        ArrayList<Bookmark> bookmarks = bookmarkRepository.findAllByUserId(userId, pagination.toPageRequest());
+        ArrayList<Bookmark> bookmarks = bookmarkRepository.findAllByUserIdAndIdLessThan(userId, pagination.getLastId(), pagination.toPageRequest());
 
         if(bookmarks.isEmpty())
             throw new CustomException(CustomStatus.NO_CONTENTS);

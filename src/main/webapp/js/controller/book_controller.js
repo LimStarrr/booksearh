@@ -3,6 +3,7 @@
 angular.module('BookApp').controller('BookController', ['$scope', '$location', '$window', 'BookService', function($scope, $location, $window, BookService) {
     var self = this;
     self.books = [];
+    self.searchbooks = [];
     self.title = "";
     self.searchBooks = searchBooks;
     self.createBookMark = createBookMark;
@@ -80,11 +81,19 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
     }
 
     function searchBookMarkList(sortType) {
-        BookService.searchBookMarkList(sortType)
+        var idvalue;
+        if(self.searchbooks.length <= 0)
+            idvalue = Number.MAX_SAFE_INTEGER;
+        else
+            idvalue = self.searchbooks[self.searchbooks.length -1].id;
+
+        BookService.searchBookMarkList(sortType, idvalue)
             .then(
                 function (res) {
                     self.isSearchView = false;
-                    self.books = res.bookmarks;
+                    for(var i = 0 ; i < res.bookmarks.length; i++ ) {
+                        self.searchbooks.push(res.bookmarks[i]);
+                    }
                 },
                 function(errResponse) {
                     console.error('Error while search bookmark list');
@@ -107,5 +116,17 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
     function submitForm() {
         alert();
     }
+
+    // angular.module('scroll', []).directive('whenScrolled', function() {
+    //     return function(scope, elm, attr) {
+    //         var raw = elm[0];
+    //
+    //         elm.bind('scroll', function() {
+    //             if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+    //                 scope.$apply(attr.whenScrolled);
+    //             }
+    //         });
+    //     };
+    // });
 
 }]);

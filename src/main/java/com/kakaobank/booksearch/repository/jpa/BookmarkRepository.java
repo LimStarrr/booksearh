@@ -9,6 +9,6 @@ import java.util.ArrayList;
 
 @Repository
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
-    ArrayList<Bookmark> findByUserId(long userId, Pageable pageable);
-    ArrayList<Bookmark> findAllByUserId(long userId, Pageable pageable);
+    ArrayList<Bookmark> findAllByUserIdAndIdLessThan(long userId, long id, Pageable pageable);
+
 }

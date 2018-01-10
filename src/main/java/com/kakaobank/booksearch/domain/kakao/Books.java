@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Books {
+    long id;
     List<String> authors;
     String barcode;
     String category;
