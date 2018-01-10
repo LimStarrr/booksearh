@@ -1,10 +1,8 @@
 package com.kakaobank.booksearch.repository.redis;
 
 import com.kakaobank.booksearch.domain.redis.Session;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public interface SessionRepository extends JpaRepository<Session, String> {
+public interface SessionRepository extends CrudRepository<Session, String> {
 
 }

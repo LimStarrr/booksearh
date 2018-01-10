@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 @Repository
 public interface HistoryRepository extends JpaRepository<History, Long> {
-    ArrayList<History> findByUserId(long userId);
+    ArrayList<History> findAllByUserId(long userId);
 }

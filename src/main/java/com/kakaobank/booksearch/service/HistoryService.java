@@ -16,7 +16,7 @@ public class HistoryService {
     HistoryRepository historyRepository;
 
     public GetHistoryResponse getHistory(long userId) {
-        ArrayList<History> histories = historyRepository.findByUserId(userId);
+        ArrayList<History> histories = historyRepository.findAllByUserId(userId);
         return GetHistoryResponse.valueOf(histories);
     }
 
