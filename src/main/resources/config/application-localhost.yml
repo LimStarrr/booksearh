@@ -1,4 +1,7 @@
 spring:
   thymeleaf:
     cache: false
-    
+
+kakao:
+  Authorization: KakaoAK b213e0be9fc3047b54714796f6f0ef5e
+

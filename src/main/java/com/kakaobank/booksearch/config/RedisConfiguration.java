@@ -16,10 +16,10 @@ public class RedisConfiguration {
         return factory;
     }
 
-    @Bean
-    RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
-        return template;
-    }
+//    @Bean
+//    RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {
+//        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
+//        template.setConnectionFactory(connectionFactory);
+//        return template;
+//    }
 }
