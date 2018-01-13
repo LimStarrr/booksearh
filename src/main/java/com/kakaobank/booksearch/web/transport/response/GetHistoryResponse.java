@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 @Data
 public class GetHistoryResponse {
-    ArrayList<String> historys = new ArrayList<>();
+    ArrayList<String> histories = new ArrayList<>();
 
-    public static GetHistoryResponse valueOf(ArrayList<History> historys) {
+    public static GetHistoryResponse valueOf(ArrayList<History> histories) {
         GetHistoryResponse getHistoryResponse = new GetHistoryResponse();
-        historys.forEach(history -> {
-            getHistoryResponse.getHistorys().add(history.getQuery());
+        histories.forEach(history -> {
+            getHistoryResponse.getHistories().add(history.getQuery());
         });
 
         return getHistoryResponse;
