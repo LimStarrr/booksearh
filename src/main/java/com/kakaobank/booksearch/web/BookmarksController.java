@@ -1,6 +1,7 @@
 package com.kakaobank.booksearch.web;
 
 import com.kakaobank.booksearch.common.Attribute;
+import com.kakaobank.booksearch.domain.jpa.Bookmark;
 import com.kakaobank.booksearch.domain.redis.Session;
 import com.kakaobank.booksearch.service.BookmarksService;
 import com.kakaobank.booksearch.web.transport.Pagination;
@@ -27,11 +28,9 @@ public class BookmarksController {
 
     @PostMapping
     @ResponseBody
-    public String postBookmarks(@RequestAttribute(Attribute.SESSION) Session session,
+    public void postBookmarks(@RequestAttribute(Attribute.SESSION) Session session,
                                 @RequestBody @Valid PostBookmarkRequest request) {
         bookmarksService.postBookmarks(session.getValue().getUserId(), request);
-//        bookmarksService.postBookmarks(session.getValue().getUserId(), null);
-        return null;
     }
 
     @GetMapping("")
@@ -42,7 +41,7 @@ public class BookmarksController {
     }
 
     @DeleteMapping("/{bookmarkId}")
-    public void deleteBookmarks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable int bookmarkId) {
-        bookmarksService.deleteBookmarks(session.getValue().getUserId(), bookmarkId );
+    public Bookmark deleteBookmarks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable int bookmarkId) {
+        return bookmarksService.deleteBookmarks(session.getValue().getUserId(), bookmarkId );
     }
 }

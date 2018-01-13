@@ -4,6 +4,7 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
     var self = this;
     self.books = [];
     self.searchbooks = [];
+    self.historyList = [];
     self.title = "";
     self.searchBooks = searchBooks;
     self.createBookMark = createBookMark;
@@ -15,10 +16,14 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
 
     self.isSearchView = true;
 
+    self.isHistoryView = false;
+    self.page = 0;
+
     self.sorts = [
-        {type : "Title", index : 0},
-        {type : "Date", index : 1}
-    ]
+        {type : "Title", index : "0"},
+        {type : "Date", index : "1"}
+    ];
+    self.selectedSort = "0";
 
     function createBookMark(book) {
         console.log(book);
@@ -43,6 +48,7 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
             .then(
                 function(d) {
                     self.isSearchView = true;
+                    self.isHistoryView = false;
                     self.books = d.documents;
                     console.log(self.books);
                 },
@@ -56,7 +62,8 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
         BookService.searchHistoryList()
             .then(
                 function (res) {
-                    alert(res.historys);
+                    self.isHistoryView = true;
+                    self.historyList = res.historys;
                 },
                 function(errResponse) {
                     console.error('Error while search history');
@@ -80,20 +87,26 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
             );
     }
 
-    function searchBookMarkList(sortType) {
-        var idvalue;
-        if(self.searchbooks.length <= 0)
-            idvalue = Number.MAX_SAFE_INTEGER;
-        else
-            idvalue = self.searchbooks[self.searchbooks.length -1].id;
+    function searchBookMarkList(sortType, page) {
+        if( page === 0)
+            self.page = 0;
 
-        BookService.searchBookMarkList(sortType, idvalue)
+        if(self.page === -1)
+            return;
+
+        BookService.searchBookMarkList(sortType, self.page)
             .then(
                 function (res) {
                     self.isSearchView = false;
-                    for(var i = 0 ; i < res.bookmarks.length; i++ ) {
-                        self.searchbooks.push(res.bookmarks[i]);
+                    self.isHistoryView = false;
+                    for(var i = 0 ; i < res.bookmarks.content.length; i++ ) {
+                        self.searchbooks.push(res.bookmarks.content[i]);
                     }
+
+                    if(res.bookmarks.totalPages === self.page + 1)
+                        self.page = -1;
+                    else
+                        self.page++;
                 },
                 function(errResponse) {
                     console.error('Error while search bookmark list');
@@ -101,8 +114,8 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
             );
     }
 
-    function deleteBookMark() {
-        BookService.deleteBookMark()
+    function deleteBookMark(id) {
+        BookService.deleteBookMark(id)
             .then(
                 function (res) {
                     searchBookMarkList();

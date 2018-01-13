@@ -23,7 +23,7 @@ public class Pagination {
 	private int sortType = SortType.TITLE.getType();
 
 	public PageRequest toPageRequest() {
-		return new PageRequest(0, this.size, new Sort(Direction.DESC, sortType(sortType)));
+		return new PageRequest(0, this.size, new Sort(Direction.DESC, "id"));
 	}
 
 	public PageRequest toPageOffsetRequest() {

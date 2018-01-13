@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 @Entity
@@ -25,7 +28,7 @@ public class Bookmark {
     String barcode;
     String category;
     String contents;
-    String datetime;
+    ZonedDateTime datetime;
     String ebook_barcode;
     String isbn;
     int price;

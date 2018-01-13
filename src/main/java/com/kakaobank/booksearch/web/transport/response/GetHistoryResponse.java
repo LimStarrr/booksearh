@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 @Data
 public class GetHistoryResponse {
-    ArrayList<String> historys = new ArrayList<>();
+    ArrayList<String> historys;
 
     public static GetHistoryResponse valueOf(ArrayList<History> historys) {
         GetHistoryResponse getHistoryResponse = new GetHistoryResponse();

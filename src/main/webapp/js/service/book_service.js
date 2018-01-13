@@ -32,9 +32,9 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
     }
 
     /* Book Mark 삭제 */
-    function deleteBookMark(bookMark) {
+    function deleteBookMark(id) {
         var deferred = $q.defer();
-        $http.delete(REST_SERVICE_URI + '/bookmarks', bookMark)
+        $http.delete(REST_SERVICE_URI + '/bookmarks' + '/' + id)
             .then(
                 function(response) {
                     deferred.resolve(response.data);
@@ -90,27 +90,27 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
     }
 
     /* Book mark list */
-    function searchBookMarkList(sortType, lastId) {
+    function searchBookMarkList(sortType, page) {
         var deferred = $q.defer();
         console.log('searchBookMarkList sortType : ' + sortType);
-        console.log('searchBookMarkList lastId : ' + lastId);
+        console.log('searchBookMarkList lastId : ' + page);
 
         var data = {
-            lastId:lastId,
+            lastId:page,
             size:10,
             sortType:sortType
         };
 
         var config = {
             params: data
-        }
+        };
         // $http.get(REST_SERVICE_URI + '/bookmarks', config)
         // $http.get(REST_SERVICE_URI + '/bookmarks/sort', config)
 
         console.log('Config Data : ' + config);
 
         // $http.get(REST_SERVICE_URI + '/bookmarks', config)
-        $http.get(REST_SERVICE_URI + '/bookmarks', {params: {lastId:lastId, size:10, sortType:'title'}})
+        $http.get(REST_SERVICE_URI + '/bookmarks', {params: data})
             .then(
                 function(response) {
                     deferred.resolve(response.data);
@@ -133,7 +133,7 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
                 },
                 function(errResponse) {
                     // console.error('Error while search hitory');
-                    console.error(errResponse);
+                    // console.error(errResponse);
                     deferred.reject(errResponse);
                 }
             );
