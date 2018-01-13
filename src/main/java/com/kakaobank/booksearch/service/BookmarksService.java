@@ -9,6 +9,7 @@ import com.kakaobank.booksearch.web.transport.request.PostBookmarkRequest;
 import com.kakaobank.booksearch.web.transport.request.SortType;
 import com.kakaobank.booksearch.web.transport.response.GetBookmarkResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,11 +21,11 @@ public class BookmarksService {
     @Autowired
     BookmarkRepository bookmarkRepository;
 
-//    public GetBookmarkResponse getBookmarks(long userId, Pagination pagination, String sortType) {
     public GetBookmarkResponse getBookmarks(long userId, Pagination pagination) {
-        ArrayList<Bookmark> bookmarks = bookmarkRepository.findAllByUserIdAndIdLessThan(userId, pagination.getLastId(), pagination.toPageRequest());
+//        ArrayList<Bookmark> bookmarks = bookmarkRepository.findAllByUserIdAndIdLessThan(userId, pagination.getLastId(), pagination.toPageRequest());
+        Page<Bookmark> bookmarks = bookmarkRepository.findAllByUserId(userId, pagination.toPageOffsetRequest());
 
-        if(bookmarks.isEmpty())
+        if(bookmarks.getTotalElements() <= 0)
             throw new CustomException(CustomStatus.NO_CONTENTS);
 
         return GetBookmarkResponse.valueOf(bookmarks);

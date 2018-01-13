@@ -1,6 +1,8 @@
 package com.kakaobank.booksearch.service;
 
+import com.kakaobank.booksearch.config.property.Kakao;
 import com.kakaobank.booksearch.domain.kakao.BookSearch;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,21 +18,24 @@ import java.net.URI;
 public class BookSearchRestTemplate {
     private final RestTemplate restTemplate;
 
+    @Autowired
+    private Kakao kakao;
+
     public BookSearchRestTemplate(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public BookSearch getSearchResult(String title) {
-        URI uri = UriComponentsBuilder.fromHttpUrl("https://dapi.kakao.com/v2/search/book")
-                .queryParam("query", title)
-                .build().toUri();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "KakaoAK b213e0be9fc3047b54714796f6f0ef5e");
-        HttpEntity entity = new HttpEntity(headers);
-
-        ResponseEntity<BookSearch> bookSearchResponseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, BookSearch.class);
-
-        return bookSearchResponseEntity.getBody();
-    }
+//    public BookSearch getSearchResult(String title) {
+//        URI uri = UriComponentsBuilder.fromHttpUrl(kakao.getUrl())
+//                .queryParam("query", title)
+//                .build().toUri();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Authorization", kakao.getAuthorization());
+//        HttpEntity entity = new HttpEntity(headers);
+//
+//        ResponseEntity<BookSearch> bookSearchResponseEntity = restTemplate.exchange(uri, HttpMethod.GET, entity, BookSearch.class);
+//
+//        return bookSearchResponseEntity.getBody();
+//    }
 }

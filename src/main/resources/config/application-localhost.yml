@@ -1,7 +1,26 @@
 spring:
   thymeleaf:
-    cache: false
+     cache: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+  jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: create
+      database: h2
+
+  datasource:
+    url: jdbc:h2:mem:kakao
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
 
 kakao:
-  Authorization: KakaoAK b213e0be9fc3047b54714796f6f0ef5e
+  url: https://dapi.kakao.com/v2/search/book
+  authorization: KakaoAK b213e0be9fc3047b54714796f6f0ef5e
+
 

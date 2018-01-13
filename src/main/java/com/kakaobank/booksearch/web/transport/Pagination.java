@@ -16,13 +16,17 @@ import javax.persistence.Enumerated;
 @EqualsAndHashCode
 @ToString
 public class Pagination {
-	private Long lastId = Long.MAX_VALUE;
+	private Integer lastId = Integer.MAX_VALUE;
 
 	private Integer size = Integer.MAX_VALUE;
 
-	private String sortType = SortType.CATEGORY.name();
+	private SortType sortType = SortType.CATEGORY;
 
 	public PageRequest toPageRequest() {
-		return new PageRequest(0, this.size, new Sort(Direction.DESC, this.sortType));
+		return new PageRequest(0, this.size, new Sort(Direction.DESC, this.sortType.name()));
+	}
+
+	public PageRequest toPageOffsetRequest() {
+		return new PageRequest(lastId, this.size, new Sort(Direction.DESC, this.sortType.name()));
 	}
 }
