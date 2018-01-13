@@ -20,12 +20,6 @@ public class BookmarksController {
     @Autowired
     BookmarksService bookmarksService;
 
-
-//    @PostMapping
-//    public void postBookmarks(@RequestAttribute(Attribute.SESSION) Session session) {
-//        bookmarksService.postBookmarks(session.getValue().getUserId(), null);
-//    }
-
     @PostMapping
     @ResponseBody
     public void postBookmarks(@RequestAttribute(Attribute.SESSION) Session session,
@@ -40,8 +34,8 @@ public class BookmarksController {
         return bookmarksService.getBookmarks(session.getValue().getUserId(), pagination);
     }
 
-    @DeleteMapping("/{bookmarkId}")
-    public Bookmark deleteBookmarks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable int bookmarkId) {
-        return bookmarksService.deleteBookmarks(session.getValue().getUserId(), bookmarkId );
+    @DeleteMapping("/{barcode}")
+    public Bookmark deleteBookmarks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable String barcode) {
+        return bookmarksService.deleteBookmarks(session.getValue().getUserId(), barcode );
     }
 }

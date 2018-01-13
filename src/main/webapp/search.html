@@ -37,8 +37,8 @@
         <!-- Collection of nav links and other content for toggling -->
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#" ng-click="ctrl.searchHistory()">History</a></li>
-                <li><a href="#" ng-click="ctrl.searchBookMarkList(ctrl.selectedSort, 0)">Book Mark</a></li>
+                <li class="active"><a href="#" ng-click="ctrl.getHistory()">History</a></li>
+                <li><a href="#" ng-click="ctrl.getBookMarks(ctrl.selectedSort, 0)">Book Mark</a></li>
                 <select ng-model="ctrl.selectedSort">
                     <option ng-repeat="sort in ctrl.sorts" value="{{sort.index}}">{{sort.type}}</option>
                 </select>
@@ -60,7 +60,7 @@
                         <div class="input-group search-text">
                             <input type="text" class="form-control" placeholder="Search for..." ng-model="title">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" ng-click="ctrl.searchBooks(title)">
+                                <button class="btn btn-default" ng-click="ctrl.searchKakaoBooks(title)">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </span>
@@ -72,11 +72,11 @@
 
         <div>
             <div ng-if="ctrl.isHistoryView">
-                <div ng-repeat="history in ctrl.historyList" class="row history-list generic-container">
+                <div ng-repeat="history in ctrl.historyList track by $index" class="row history-list generic-container">
                     {{ history }}
                 </div>
             </div>
-            <div ng-if="!ctrl.isSearchView && !ctrl.isHistoryView" infinite-scroll="ctrl.searchBookMarkList(ctrl.selectedSort, -1)">
+            <div ng-if="!ctrl.isSearchView && !ctrl.isHistoryView" infinite-scroll="ctrl.getBookMarks(ctrl.selectedSort, -1)">
                 <div ng-repeat="book in ctrl.searchbooks">
                     <td style="padding: 0; margin: 0;">
                         <table class="table boot-info">
@@ -84,7 +84,7 @@
                                 <td rowspan="5" style="width: 105px;"><img ng-src="{{book.thumbnail}}" width="105"></td>
                                 <td colspan="2" class="book-title">
                                     <span ng-bind="book.title"></span>
-                                    <a href="#" class="btn btn-info btn-xs pull-right" ng-click="ctrl.deleteBookMark(book.id)">
+                                    <a href="#" class="btn btn-info btn-xs pull-right" ng-click="ctrl.deleteBookMark(book.barcode)">
                                         <span class="glyphicon"></span> Delete
                                     </a>
                                 </td>
@@ -128,7 +128,7 @@
                                     <td rowspan="5" style="width: 121px;"><img ng-src="{{book.thumbnail}}" width="105"></td>
                                     <td colspan="2" class="book-title">
                                         <span ng-bind="book.title"></span>
-                                        <a ng-if="ctrl.isSearchView" href="#" class="btn btn-info btn-xs pull-right" ng-click="ctrl.createBookMark(book)">
+                                        <a ng-if="ctrl.isSearchView" href="#" class="btn btn-info btn-xs pull-right" ng-click="ctrl.postBookMark(book)">
                                             <span class="glyphicon glyphicon-bookmark"></span> Bookmark
                                         </a>
                                         <a ng-if="!ctrl.isSearchView" href="#" class="btn btn-info btn-xs pull-right" ng-click="ctrl.deleteBookMark()">

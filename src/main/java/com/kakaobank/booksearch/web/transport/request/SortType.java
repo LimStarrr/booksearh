@@ -9,7 +9,7 @@ import lombok.Getter;
 public enum SortType {
     TITLE(0,"title"),
     DATETIME(1, "datetime"),
-    CATEGORY(2, "category");
+    PRICE(2, "price");
 
     @Getter
     int type;

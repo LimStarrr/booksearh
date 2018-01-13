@@ -6,20 +6,14 @@ import com.kakaobank.booksearch.repository.jpa.BookmarkRepository;
 import com.kakaobank.booksearch.web.transport.Pagination;
 import com.kakaobank.booksearch.web.transport.request.PostBookmarkRequest;
 import com.kakaobank.booksearch.web.transport.response.GetBookmarkResponse;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @Service
 public class BookmarksService {
@@ -61,11 +55,21 @@ public class BookmarksService {
         bookmarkRepository.save(bookmark);
     }
 
+//    @Transactional
+//    public Bookmark deleteBookmarks(long userId, int bookmarkId) {
+//        Bookmark bookmark = new Bookmark();
+//        bookmark.setUserId(userId);
+//        bookmark.setId(bookmarkId);
+//
+//        bookmarkRepository.delete(bookmark);
+//
+//        return bookmark;
+//    }
     @Transactional
-    public Bookmark deleteBookmarks(long userId, int bookmarkId) {
+    public Bookmark deleteBookmarks(long userId, String barcode) {
         Bookmark bookmark = new Bookmark();
         bookmark.setUserId(userId);
-        bookmark.setId(bookmarkId);
+        bookmark.setBarcode(barcode);
 
         bookmarkRepository.delete(bookmark);
 

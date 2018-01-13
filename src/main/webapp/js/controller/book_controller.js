@@ -6,75 +6,33 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
     self.searchbooks = [];
     self.historyList = [];
     self.title = "";
-    self.searchBooks = searchBooks;
-    self.createBookMark = createBookMark;
-    self.searchHistory = searchHistory;
-    self.searchBookMarkList = searchBookMarkList;
+    self.searchKakaoBooks = searchKakaoBooks;
+    self.postBookMark = postBookMark;
+    self.getHistory = getHistory;
+    self.getBookMarks = getBookMarks;
     self.deleteBookMark = deleteBookMark;
     self.submitForm = submitForm;
-    self.login = login;
+    self.signin = signin;
 
     self.isSearchView = true;
 
     self.isHistoryView = false;
     self.page = 0;
 
+    self.barcode = -1;
+
     self.sorts = [
         {type : "Title", index : "0"},
-        {type : "Date", index : "1"}
+        {type : "Date", index : "1"},
+        {type : "Price", index : "2"}
+
     ];
     self.selectedSort = "0";
 
-    function createBookMark(book) {
-        console.log(book);
-        var bookData = JSON.stringify(book);
-        BookService.createBookMark(bookData)
-            .then(
-                function(d) {
-                    console.log(d);
-                },
-                function(errResponse) {
-                    console.error('Error while createBookMark');
-                }
-            );
-    }
-
-    function searchBooks(title) {
-        // if (title == undefined || title == '') {
-        //     alert('검색어를 입력하세요.');
-        //     return;
-        // }
-        BookService.searchBooks(title)
-            .then(
-                function(d) {
-                    self.isSearchView = true;
-                    self.isHistoryView = false;
-                    self.books = d.documents;
-                    console.log(self.books);
-                },
-                function(errResponse) {
-                    console.error('Error while search books');
-                }
-            );
-    }
-    
-    function searchHistory() {
-        BookService.searchHistoryList()
-            .then(
-                function (res) {
-                    self.isHistoryView = true;
-                    self.historyList = res.historys;
-                },
-                function(errResponse) {
-                    console.error('Error while search history');
-                }
-            );
-    }
-
-    function login(user) {
+    function signin(user) {
         var userData = JSON.stringify(user);
 
-        BookService.login(userData)
+        BookService.signin(userData)
             .then(
                 function (res) {
                     $window.location.href = '/search';
@@ -87,18 +45,37 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
             );
     }
 
-    function searchBookMarkList(sortType, page) {
-        if( page === 0)
-            self.page = 0;
+    function postBookMark(book) {
+        console.log(book);
+        var bookData = JSON.stringify(book);
+        BookService.postBookMark(bookData)
+            .then(
+                function(d) {
+                    console.log(d);
+                },
+                function(errResponse) {
+                    console.error('Error while createBookMark');
+                }
+            );
+    }
 
+    function getBookMarks(sortType, page) {
+        self.isHistoryView = false;
+        self.isSearchView = false;
+
+        if( page === 0) {
+            self.page = 0;
+            self.searchbooks = [];
+        }
         if(self.page === -1)
             return;
 
-        BookService.searchBookMarkList(sortType, self.page)
+        if( page === -1)
+            return;
+
+        BookService.getBookMarks(sortType, self.page)
             .then(
                 function (res) {
-                    self.isSearchView = false;
-                    self.isHistoryView = false;
                     for(var i = 0 ; i < res.bookmarks.content.length; i++ ) {
                         self.searchbooks.push(res.bookmarks.content[i]);
                     }
@@ -114,14 +91,50 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
             );
     }
 
-    function deleteBookMark(id) {
-        BookService.deleteBookMark(id)
+    function deleteBookMark(barcode) {
+        self.barcode = barcode;
+        BookService.deleteBookMark(barcode)
             .then(
                 function (res) {
-                    searchBookMarkList();
+                    self.searchbooks = self.searchbooks.filter(function (book) {
+                        return book.barcode !== self.barcode;
+                    });
                 },
                 function(errResponse) {
                     console.error('Error while search bookmark list');
+                }
+            );
+    }
+
+    function searchKakaoBooks(title) {
+        // if (title == undefined || title == '') {
+        //     alert('검색어를 입력하세요.');
+        //     return;
+        // }
+        BookService.searchKakaoBooks(title)
+            .then(
+                function(d) {
+                    self.isSearchView = true;
+                    self.isHistoryView = false;
+                    self.books = d.documents;
+                    console.log(self.books);
+                },
+                function(errResponse) {
+                    console.error('Error while search books');
+                }
+            );
+    }
+    
+    function getHistory() {
+        self.historyList = [];
+        BookService.getHistory()
+            .then(
+                function (res) {
+                    self.isHistoryView = true;
+                    self.historyList = res.historys;
+                },
+                function(errResponse) {
+                    console.error('Error while search history');
                 }
             );
     }

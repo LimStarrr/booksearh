@@ -4,8 +4,6 @@ import com.kakaobank.booksearch.domain.jpa.Bookmark;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 
-import java.util.ArrayList;
-
 @Data
 public class GetBookmarkResponse {
 

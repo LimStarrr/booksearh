@@ -9,16 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/search")
 public class BookSearchController {
 
     @Autowired
     private BookSearchService bookSearchService;
 
-    @GetMapping("/searches/{title}")
+    @GetMapping("/books/{title}")
     @ResponseBody
     public BookSearch getBooks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable String title) {
         return bookSearchService.getBooks(session.getValue().getUserId(), title);
     }
+
+
 
 }

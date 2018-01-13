@@ -18,14 +18,15 @@ import java.util.ArrayList;
 @ToString
 @EqualsAndHashCode
 public class Bookmark {
+
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private long id;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    String barcode;
 
     private long userId;
 
     ArrayList<String> authors;
-    String barcode;
     String category;
     String contents;
     ZonedDateTime datetime;
