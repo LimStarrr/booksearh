@@ -20,13 +20,24 @@ public class Pagination {
 
 	private Integer size = Integer.MAX_VALUE;
 
-	private SortType sortType = SortType.CATEGORY;
+	private int sortType = SortType.TITLE.getType();
 
 	public PageRequest toPageRequest() {
-		return new PageRequest(0, this.size, new Sort(Direction.DESC, this.sortType.name()));
+		return new PageRequest(0, this.size, new Sort(Direction.DESC, sortType(sortType)));
 	}
 
 	public PageRequest toPageOffsetRequest() {
-		return new PageRequest(lastId, this.size, new Sort(Direction.DESC, this.sortType.name()));
+		return new PageRequest(lastId, this.size, new Sort(Direction.DESC, sortType(sortType)));
+	}
+
+	private String sortType(int sortType) {
+		if(sortType == SortType.TITLE.getType())
+			return SortType.TITLE.getName();
+		if(sortType == SortType.DATETIME.getType())
+			return SortType.DATETIME.getName();
+		if(sortType == SortType.CATEGORY.getType())
+			return SortType.CATEGORY.getName();
+
+		return SortType.TITLE.getName();
 	}
 }
