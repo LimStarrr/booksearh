@@ -3,16 +3,19 @@ package com.kakaobank.booksearch.service;
 import com.kakaobank.booksearch.config.property.Kakao;
 import com.kakaobank.booksearch.domain.kakao.BookSearch;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class BookSearchService {
@@ -23,26 +26,23 @@ public class BookSearchService {
     private Kakao kakao;
 
     @Autowired
-    BookSearchRestTemplate bookSearchRestTemplate;
-
-    @Autowired
     HistoryService historyService;
 
-//    public BookSearchService(RestTemplateBuilder restTemplateBuilder) {
-//        this.restTemplate = restTemplateBuilder.build();
-//    }
-
-    public BookSearch getBooks(long userId, String title) {
+    public BookSearch getBooks(long userId, String title, String page) {
         historyService.postHistory(userId, title);
-        return getSearchResult(title);
+        return getSearchResult(title, page);
 //        return bookSearchRestTemplate.getSearchResult(title);
     }
 
-    public BookSearch getSearchResult(String title) {
+    public BookSearch getSearchResult(String title, String page) {
         RestTemplate restTemplate = new RestTemplate();
+        MultiValueMap<String, String> queryMaps = new LinkedMultiValueMap<String, String>();
+        queryMaps.add("query", title);
+        queryMaps.add("page", page);
 
         URI uri = UriComponentsBuilder.fromHttpUrl(kakao.getUrl())
-                .queryParam("query", title)
+//                .queryParam("query", title)
+                .queryParams(queryMaps)
                 .build().toUri();
 
         HttpHeaders headers = new HttpHeaders();

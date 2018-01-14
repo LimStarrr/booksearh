@@ -1,3 +1,3 @@
 'use strict';
 
-var App = angular.module('BookApp', ['infinite-scroll']);
+var App = angular.module('BookSearch', ['infinite-scroll']);

@@ -3,13 +3,10 @@ package com.kakaobank.booksearch.service;
 import com.kakaobank.booksearch.domain.jpa.History;
 import com.kakaobank.booksearch.exception.CustomException;
 import com.kakaobank.booksearch.repository.jpa.HistoryRepository;
-import com.kakaobank.booksearch.web.transport.Pagination;
 import com.kakaobank.booksearch.web.transport.response.GetHistoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;

@@ -22,7 +22,6 @@ public class BookmarksService {
     BookmarkRepository bookmarkRepository;
 
     public GetBookmarkResponse getBookmarks(long userId, Pagination pagination) {
-//        ArrayList<Bookmark> bookmarks = bookmarkRepository.findAllByUserIdAndIdLessThan(userId, pagination.getLastId(), pagination.toPageRequest());
         Page<Bookmark> bookmarks = bookmarkRepository.findAllByUserId(userId, pagination.toPageOffsetRequest());
 
         if(bookmarks.getTotalElements() <= 0)
@@ -55,16 +54,6 @@ public class BookmarksService {
         bookmarkRepository.save(bookmark);
     }
 
-//    @Transactional
-//    public Bookmark deleteBookmarks(long userId, int bookmarkId) {
-//        Bookmark bookmark = new Bookmark();
-//        bookmark.setUserId(userId);
-//        bookmark.setId(bookmarkId);
-//
-//        bookmarkRepository.delete(bookmark);
-//
-//        return bookmark;
-//    }
     @Transactional
     public Bookmark deleteBookmarks(long userId, String barcode) {
         Bookmark bookmark = new Bookmark();

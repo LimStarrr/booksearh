@@ -29,7 +29,7 @@
         <![endif]-->
 </head>
 
-<body ng-app="BookApp" class="ng-cloak" ng-controller="BookController as ctrl">
+<body ng-app="BookSearch" class="ng-cloak" ng-controller="BookController as ctrl">
 
     <nav class="navbar">
         <div class="navbar-header">
@@ -60,7 +60,7 @@
                         <div class="input-group search-text">
                             <input type="text" class="form-control" placeholder="Search for..." ng-model="title">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" ng-click="ctrl.searchKakaoBooks(title)">
+                                <button class="btn btn-default" ng-click="ctrl.onClicksearchKakaoBooks(title)">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </button>
                             </span>
@@ -109,8 +109,8 @@
                 </div>
             </div>
 
-            <table ng-if="ctrl.isSearchView && !ctrl.isHistoryView" class="table">
-                <tbody>
+            <!--<table ng-if="ctrl.isSearchView" class="table">-->
+                <!--<tbody>-->
                     <!-- <tr class="row-content">
                         <td>1</td>
                         <td> <span class="label label-default "> 2 </span></td>
@@ -120,8 +120,10 @@
                             <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal">상세보기</button>
                         </td>
                     </tr> -->
+                    <div ng-if="ctrl.isSearchView" infinite-scroll="ctrl.searchKakaoBooks(title)">
+                    <div  ng-repeat="book in ctrl.books">
 
-                    <tr  ng-repeat="book in ctrl.books">
+                    <!--<tr  ng-repeat="book in ctrl.books">-->
                         <td style="padding: 0; margin: 0;">
                             <table class="table boot-info">
                                 <tr>
@@ -151,11 +153,13 @@
                                 <tr>
                                     <td>카테고리 <span ng-bind="book.category"></span></td>
                                 </tr>
+
                             </table>
                         </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </div>
+                    </div>
+                <!--</tbody>-->
+            <!--</table>-->
         </div>
     </div>
 

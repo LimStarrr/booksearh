@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('BookApp').factory('BookService', ['$http', '$q', function($http, $q) {
+angular.module('BookSearch').factory('BookService', ['$http', '$q', function($http, $q) {
 
     var REST_SERVICE_URI = 'http://localhost:8080';
 
@@ -96,9 +96,9 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
     }
 
     /* book search */
-    function searchKakaoBooks(title) {
+    function searchKakaoBooks(title, page) {
         var deferred = $q.defer();
-        $http.get(REST_SERVICE_URI + '/search/books/' + title)
+        $http.get(REST_SERVICE_URI + '/search/books/' + title + '/' + page)
             .then(
                 function(response) {
                     deferred.resolve(response.data);
@@ -108,16 +108,6 @@ angular.module('BookApp').factory('BookService', ['$http', '$q', function($http,
                     deferred.reject(errResponse);
                 }
             );
-        // $http.get(REST_SERVICE_URI + '/books/searches/')
-        //     .then(
-        //         function(response) {
-        //             deferred.resolve(response.data);
-        //         },
-        //         function(errResponse) {
-        //             console.error('Error while search books');
-        //             deferred.reject(errResponse);
-        //         }
-        //     );
         return deferred.promise;
     }
 

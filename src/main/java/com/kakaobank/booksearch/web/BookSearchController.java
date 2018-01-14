@@ -15,10 +15,10 @@ public class BookSearchController {
     @Autowired
     private BookSearchService bookSearchService;
 
-    @GetMapping("/books/{title}")
+    @GetMapping("/books/{title}/{page}")
     @ResponseBody
-    public BookSearch getBooks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable String title) {
-        return bookSearchService.getBooks(session.getValue().getUserId(), title);
+    public BookSearch getBooks(@RequestAttribute(Attribute.SESSION) Session session, @PathVariable String title, @PathVariable String page ) {
+        return bookSearchService.getBooks(session.getValue().getUserId(), title, page);
     }
 
 

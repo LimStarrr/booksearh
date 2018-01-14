@@ -1,11 +1,12 @@
 'use strict';
 
-angular.module('BookApp').controller('BookController', ['$scope', '$location', '$window', 'BookService', function($scope, $location, $window, BookService) {
+angular.module('BookSearch').controller('BookController', ['$scope', '$location', '$window', 'BookService', function($scope, $location, $window, BookService) {
     var self = this;
     self.books = [];
     self.searchbooks = [];
     self.historyList = [];
     self.title = "";
+    self.onClicksearchKakaoBooks = onClicksearchKakaoBooks;
     self.searchKakaoBooks = searchKakaoBooks;
     self.postBookMark = postBookMark;
     self.getHistory = getHistory;
@@ -18,7 +19,7 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
 
     self.isHistoryView = false;
     self.page = 0;
-
+    self.kakaopage = 1;
     self.barcode = -1;
 
     self.sorts = [
@@ -106,18 +107,37 @@ angular.module('BookApp').controller('BookController', ['$scope', '$location', '
             );
     }
 
+
+
+    function onClicksearchKakaoBooks(title) {
+        self.books = [];
+        searchKakaoBooks(title);
+    }
+
     function searchKakaoBooks(title) {
         // if (title == undefined || title == '') {
         //     alert('검색어를 입력하세요.');
         //     return;
         // }
-        BookService.searchKakaoBooks(title)
+
+        BookService.searchKakaoBooks(title, self.kakaopage)
             .then(
                 function(d) {
                     self.isSearchView = true;
                     self.isHistoryView = false;
-                    self.books = d.documents;
-                    console.log(self.books);
+                    if(d.meta.pageable_count > self.kakaopage) {
+                        self.kakaopage = self.kakaopage + 1;
+                        // self.books.push(d.documents);
+                        for(var i = 0 ; i < d.documents.length; i++ ) {
+                            self.books.push(d.documents[i]);
+                        }
+
+                    }else {
+                        self.books = d.documents;
+                    }
+                    console.log("self.kakaopage : " + self.kakaopage);
+
+                    console.log("self.books.length : " + self.books.length);
                 },
                 function(errResponse) {
                     console.error('Error while search books');
