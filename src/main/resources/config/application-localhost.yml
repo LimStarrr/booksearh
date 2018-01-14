@@ -1,3 +1,6 @@
+server:
+  port: 8080
+
 spring:
   thymeleaf:
      cache: false
@@ -18,6 +21,10 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
+
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
 
 kakao:
   url: https://dapi.kakao.com/v2/search/book

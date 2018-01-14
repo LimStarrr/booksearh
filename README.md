@@ -20,7 +20,7 @@ DB : H2 Database
 
 > gradle build
 
-> java -jar build/libs/booksearch-1.0.0.jar
+> java -jar build/libs/booksearch-1.0.0.jar -Dspring.profiles.active=localhost &
 
 실행 :
 

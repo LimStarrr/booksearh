@@ -3,6 +3,7 @@ package com.kakaobank.booksearch.domain.jpa;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,11 @@ public class Bookmark {
     ArrayList<String> authors;
     String category;
     String contents;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+//    LocalDateTime datetime;
     ZonedDateTime datetime;
+
     String ebook_barcode;
     String isbn;
     int price;
