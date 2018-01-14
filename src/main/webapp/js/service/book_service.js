@@ -7,6 +7,7 @@ angular.module('BookSearch').factory('BookService', ['$http', '$q', function($ht
     var factory = {
         postBookMark: postBookMark,
         searchKakaoBooks: searchKakaoBooks,
+        postHistory: postHistory,
         getHistory: getHistory,
         getBookMarks: getBookMarks,
         deleteBookMark: deleteBookMark,
@@ -99,6 +100,21 @@ angular.module('BookSearch').factory('BookService', ['$http', '$q', function($ht
     function searchKakaoBooks(title, page) {
         var deferred = $q.defer();
         $http.get(REST_SERVICE_URI + '/search/books/' + title + '/' + page)
+            .then(
+                function(response) {
+                    deferred.resolve(response.data);
+                },
+                function(errResponse) {
+                    console.error('Error while search books');
+                    deferred.reject(errResponse);
+                }
+            );
+        return deferred.promise;
+    }
+
+    function postHistory(title) {
+        var deferred = $q.defer();
+        $http.post(REST_SERVICE_URI + '/history', title)
             .then(
                 function(response) {
                     deferred.resolve(response.data);

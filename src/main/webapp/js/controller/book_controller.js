@@ -9,6 +9,7 @@ angular.module('BookSearch').controller('BookController', ['$scope', '$location'
     self.onClicksearchKakaoBooks = onClicksearchKakaoBooks;
     self.searchKakaoBooks = searchKakaoBooks;
     self.postBookMark = postBookMark;
+    self.postHistory = postHistory;
     self.getHistory = getHistory;
     self.getBookMarks = getBookMarks;
     self.deleteBookMark = deleteBookMark;
@@ -31,6 +32,8 @@ angular.module('BookSearch').controller('BookController', ['$scope', '$location'
     self.selectedSort = "0";
 
     function signin(user) {
+        self.books = [];
+
         var userData = JSON.stringify(user);
 
         BookService.signin(userData)
@@ -112,13 +115,13 @@ angular.module('BookSearch').controller('BookController', ['$scope', '$location'
     function onClicksearchKakaoBooks(title) {
         self.books = [];
         searchKakaoBooks(title);
+        postHistory(title);
     }
 
     function searchKakaoBooks(title) {
-        // if (title == undefined || title == '') {
-        //     alert('검색어를 입력하세요.');
-        //     return;
-        // }
+        if (title == undefined || title == '') {
+            return;
+        }
 
         BookService.searchKakaoBooks(title, self.kakaopage)
             .then(
@@ -144,17 +147,31 @@ angular.module('BookSearch').controller('BookController', ['$scope', '$location'
                 }
             );
     }
-    
+
+    function postHistory(title) {
+        BookService.postHistory(title)
+            .then(
+                function (res) {
+
+                },
+                function(errResponse) {
+                    console.error('Error while post history');
+                }
+            );
+    }
+
+
     function getHistory() {
         self.historyList = [];
         BookService.getHistory()
             .then(
                 function (res) {
                     self.isHistoryView = true;
-                    self.historyList = res.historys;
+                    self.isSearchView = false;
+                    self.historyList = res.histories;
                 },
                 function(errResponse) {
-                    console.error('Error while search history');
+                    console.error('Error while get history');
                 }
             );
     }

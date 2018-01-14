@@ -13,6 +13,12 @@ public class HistoryController {
     @Autowired
     private HistoryService historyService;
 
+    @PostMapping
+    @ResponseBody
+    public void postHistory(@RequestAttribute(Attribute.SESSION) Session session, @RequestBody String title) {
+        historyService.postHistory(session.getValue().getUserId(), title);
+    }
+
     @GetMapping
     @ResponseBody
     public GetHistoryResponse getHistory(@RequestAttribute(Attribute.SESSION) Session session) {

@@ -29,7 +29,7 @@ public class BookSearchService {
     HistoryService historyService;
 
     public BookSearch getBooks(long userId, String title, String page) {
-        historyService.postHistory(userId, title);
+//        historyService.postHistory(userId, title);
         return getSearchResult(title, page);
 //        return bookSearchRestTemplate.getSearchResult(title);
     }
