@@ -5,6 +5,7 @@ import com.kakaobank.booksearch.domain.kakao.Books;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,8 +36,10 @@ import java.util.ArrayList;
 @ToString
 @EqualsAndHashCode
 public class PostBookmarkRequest {
-    ArrayList<String> authors;
+    @NotEmpty
     String barcode;
+
+    ArrayList<String> authors;
     String category;
     String contents;
     String datetime;

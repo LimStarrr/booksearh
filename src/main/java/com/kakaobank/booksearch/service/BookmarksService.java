@@ -8,12 +8,10 @@ import com.kakaobank.booksearch.web.transport.request.PostBookmarkRequest;
 import com.kakaobank.booksearch.web.transport.response.GetBookmarkResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -52,8 +50,6 @@ public class BookmarksService {
 
         bookmark.setDatetime(
                 ZonedDateTime.parse(request.getDatetime(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-//        bookmark.setDatetime(LocalDateTime.parse(request.getDatetime()));
-//                ZonedDateTime.parse(request.getDatetime(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
 
         bookmarkRepository.save(bookmark);
     }

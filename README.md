@@ -8,6 +8,7 @@ Java 1.8
 lombok Plugin 설치 : Preferences -> Plugins -> search Lombok -> install -> restart Intellj
 
 DB : H2 Database
+JDBC URL : jdbc:h2:mem:kakao
 
 1. Session관리를 위한 Redis 설치 후 redis server 시작 필요
 

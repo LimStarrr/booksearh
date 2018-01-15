@@ -9,9 +9,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 @Data
 @EqualsAndHashCode
 @ToString

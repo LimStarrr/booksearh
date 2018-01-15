@@ -13,16 +13,16 @@ public class HttpHeader {
 	
 	public static final String SESSION = "session";
 	
-	public static final String X_APP_VERSION = "X-APP-Version";
-	
-	public static final String X_DEVICE = "X-Device";
-	
-	public static final String ACCEPT_LANGUAGE = "Accept-Language";
-	
-	
-	private String appVersion;
-	
-	private String device;
-	
-	private String acceptLanguage;
+//	public static final String X_APP_VERSION = "X-APP-Version";
+//
+//	public static final String X_DEVICE = "X-Device";
+//
+//	public static final String ACCEPT_LANGUAGE = "Accept-Language";
+//
+//
+//	private String appVersion;
+//
+//	private String device;
+//
+//	private String acceptLanguage;
 }

@@ -18,9 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class BookSearchService {
-
-//    private final RestTemplate restTemplate;
+public class SearchBooksService {
 
     @Autowired
     private Kakao kakao;
@@ -28,10 +26,8 @@ public class BookSearchService {
     @Autowired
     HistoryService historyService;
 
-    public BookSearch getBooks(long userId, String title, String page) {
-//        historyService.postHistory(userId, title);
+    public BookSearch getBooks(String title, String page) {
         return getSearchResult(title, page);
-//        return bookSearchRestTemplate.getSearchResult(title);
     }
 
     public BookSearch getSearchResult(String title, String page) {
@@ -41,7 +37,6 @@ public class BookSearchService {
         queryMaps.add("page", page);
 
         URI uri = UriComponentsBuilder.fromHttpUrl(kakao.getUrl())
-//                .queryParam("query", title)
                 .queryParams(queryMaps)
                 .build().toUri();
 
